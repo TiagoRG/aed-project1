@@ -645,6 +645,11 @@ void ImageBlur(Image img, int dx, int dy) {
     int integral_width = img->width + 1;
     int integral_height = img->height + 1;
     int* integral = (int*)calloc(integral_width * integral_height, sizeof(int));
+	if (integral == NULL) {
+        errCause = "Out of memory";
+        return;
+    }
+
     for (int y = 1; y < integral_height; y++) {
         for (int x = 1; x < integral_width; x++) {
             integral[y * integral_width + x] = ImageGetPixel(img, x - 1, y - 1)   // Pixel in the original image
